@@ -4,6 +4,7 @@ const app = express();
 
 // Adding middleware 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
