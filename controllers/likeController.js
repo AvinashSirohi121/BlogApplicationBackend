@@ -28,7 +28,7 @@ const toggleLikesOnPost = async(req,res)=>{
             user:userId,
             post:postId
         })
-        console.log("Like Exist =>",likeExist)
+        
 
         if(likeExist){
             await Like.findByIdAndDelete(likeExist._id);
@@ -37,7 +37,7 @@ const toggleLikesOnPost = async(req,res)=>{
             )
             return res.status(200).json({
                 success:true,                                                                                                                                
-                message:"Post Unliked successfully"
+                message:"Post disliked successfully"
             })
         }else{
             let likeData = await Like.create({
