@@ -208,4 +208,40 @@ const getAllCommentsForPost = async(req,res)=>{
     }
 }
 
-module.exports = { createComment,editComment,deleteComment,getAllCommentsForPost}
+const getAllCommentsForUser = async(req,res)=>{
+    try{
+        const userId = req.params.id;
+
+        if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"Kindly provide User Id"
+            })
+        }
+        const validUser = await User.findById(userId);
+        if(!validUser){
+            return res.status(404).json({
+                success:false,
+                message:"User Details not found"
+            })
+        }
+
+        const commentsDetails = await Comment.find({user:userId})
+                                    .populate("post","title").lean();
+
+        return res.status(200).json({
+            success:true,
+            message:`Comments fetched successfully for UserId : ${userId}`,
+            data:commentsDetails
+        })                            
+
+    }catch(error){
+        console.log("Error in getting all comments for User =>",error);
+        return res.status(500).json({
+            success:false,
+            message:"Error in fetching all comments for the user",
+            error:error.message
+        })
+    }
+}
+module.exports = { createComment,editComment,deleteComment,getAllCommentsForPost, getAllCommentsForUser}
