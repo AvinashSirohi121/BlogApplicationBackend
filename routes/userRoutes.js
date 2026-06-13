@@ -5,7 +5,7 @@ const {createUser,editUser,getAllUsers,getUser,deleteUser} = require("../control
 const {getAllPost, createPost,getPost,deletePost,editPost} = require("../controllers/postController");
 const {createCategory,getCategory} = require("../controllers/categoryController");
 const {toggleLikesOnPost} = require("../controllers/likeController");
-const { createComment,editComment,deleteComment,getAllCommentsForPost} = require("../controllers/commentController");
+const { createComment,editComment,deleteComment,getAllCommentsForPost,getAllCommentsForUser} = require("../controllers/commentController");
 
 /* User Routes */
 router.post("/createUser",createUser);
@@ -34,5 +34,6 @@ router.post("/createComment", createComment)
 router.put("/editComment/:id", editComment)
 router.delete("/deleteComment/:id", deleteComment)
 router.get("/getAllCommentsForPost/:id",getAllCommentsForPost)
+router.get("/getAllCommentsForUser/:id",getAllCommentsForUser)
 
 module.exports = router;
